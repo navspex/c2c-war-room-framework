@@ -30,9 +30,13 @@ const navItems: NavItem[] = [
   { icon: Settings, label: "Settings", href: "#settings" },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  activeView: string;
+  onNavigate: (view: string) => void;
+}
+
+export function Sidebar({ activeView, onNavigate }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const [activeItem, setActiveItem] = useState("War Room");
 
   return (
     <>
@@ -71,7 +75,7 @@ export function Sidebar() {
               <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
                 {navItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = activeItem === item.label;
+                  const isActive = activeView === item.label;
 
                   return (
                     <motion.a
@@ -79,7 +83,7 @@ export function Sidebar() {
                       href={item.href}
                       onClick={(e) => {
                         e.preventDefault();
-                        setActiveItem(item.label);
+                        onNavigate(item.label);
                         if (window.innerWidth < 1024) {
                           setIsOpen(false);
                         }
@@ -132,7 +136,7 @@ export function Sidebar() {
         <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-200px)]">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = activeItem === item.label;
+            const isActive = activeView === item.label;
 
             return (
               <motion.a
@@ -140,7 +144,7 @@ export function Sidebar() {
                 href={item.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  setActiveItem(item.label);
+                  onNavigate(item.label);
                 }}
                 whileHover={{ x: 4 }}
                 whileTap={{ scale: 0.98 }}
