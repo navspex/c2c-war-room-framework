@@ -10,9 +10,11 @@ import {
   Menu,
   X,
   Target,
-  BookOpen
+  BookOpen,
+  LogOut
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface NavItem {
   icon: React.ElementType;
@@ -111,7 +113,7 @@ export function Sidebar({ activeView, onNavigate }: SidebarProps) {
                 })}
               </nav>
 
-              <div className="p-4 border-t border-slate-800">
+              <div className="p-4 border-t border-slate-800 space-y-3">
                 <div className="px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-800">
                   <p className="text-xs text-slate-400">Status</p>
                   <div className="flex items-center gap-2 mt-1">
@@ -119,6 +121,15 @@ export function Sidebar({ activeView, onNavigate }: SidebarProps) {
                     <span className="text-sm text-emerald-400 font-medium">Operational</span>
                   </div>
                 </div>
+                <Link href="/" className="block">
+                  <Button
+                    variant="outline"
+                    className="w-full bg-slate-900/50 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 hover:border-emerald-500/50"
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Logout
+                  </Button>
+                </Link>
               </div>
             </motion.aside>
           </>
@@ -133,7 +144,7 @@ export function Sidebar({ activeView, onNavigate }: SidebarProps) {
           <p className="text-xs text-slate-400 mt-1">Multi-Window Course Platform</p>
         </div>
 
-        <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-200px)]">
+        <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-240px)]">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeView === item.label;
@@ -169,7 +180,7 @@ export function Sidebar({ activeView, onNavigate }: SidebarProps) {
           })}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-800 bg-slate-950/80 backdrop-blur">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-800 bg-slate-950/80 backdrop-blur space-y-3">
           <div className="px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-800">
             <p className="text-xs text-slate-400">Status</p>
             <div className="flex items-center gap-2 mt-1">
@@ -177,6 +188,15 @@ export function Sidebar({ activeView, onNavigate }: SidebarProps) {
               <span className="text-sm text-emerald-400 font-medium">Operational</span>
             </div>
           </div>
+          <Link href="/" className="block">
+            <Button
+              variant="outline"
+              className="w-full bg-slate-900/50 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 hover:border-emerald-500/50"
+            >
+              <LogOut size={16} className="mr-2" />
+              Logout
+            </Button>
+          </Link>
         </div>
       </div>
     </>

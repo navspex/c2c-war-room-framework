@@ -4,25 +4,27 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Activity, Users, Target, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Sidebar } from "@/components/sidebar";
 import { ValidationEngine } from "@/components/validation-engine";
 import { CouncilGrid } from "@/components/council-grid";
-import { councilPrompts } from "@/lib/data/prompts";
+import { moduleData } from "@/lib/data/modules";
 
 export function Dashboard() {
   const [activeView, setActiveView] = useState("War Room");
   const [showModule3, setShowModule3] = useState(false);
+  const [activeModule, setActiveModule] = useState<'module-1' | 'module-2' | 'module-3' | 'module-4' | 'module-5'>('module-1');
 
-  const module1 = councilPrompts['module-1'];
+  const currentModulePrompts = moduleData[activeModule].prompts;
 
   const councilMembers = [
-    { id: "scout", name: "Scout", prompt: module1.scout, color: "emerald" },
-    { id: "architect", name: "Architect", prompt: module1.architect, color: "blue" },
-    { id: "scribe", name: "Scribe", prompt: module1.scribe, color: "purple" },
-    { id: "auditor", name: "Auditor", prompt: module1.auditor, color: "orange" },
-    { id: "pulse", name: "Pulse", prompt: module1.pulse, color: "pink" },
-    { id: "visualist", name: "Visualist", prompt: module1.visualist, color: "cyan" },
-    { id: "homeBase", name: "Home Base", prompt: module1.homeBase, color: "yellow" },
+    { id: "scout", name: "Scout", prompt: currentModulePrompts.scout, color: "emerald" },
+    { id: "architect", name: "Architect", prompt: currentModulePrompts.architect, color: "blue" },
+    { id: "scribe", name: "Scribe", prompt: currentModulePrompts.scribe, color: "purple" },
+    { id: "auditor", name: "Auditor", prompt: currentModulePrompts.auditor, color: "orange" },
+    { id: "pulse", name: "Pulse", prompt: currentModulePrompts.pulse, color: "pink" },
+    { id: "visualist", name: "Visualist", prompt: currentModulePrompts.visualist, color: "cyan" },
+    { id: "homeBase", name: "Home Base", prompt: currentModulePrompts.homeBase, color: "yellow" },
   ];
 
   const stats = [
@@ -177,7 +179,7 @@ export function Dashboard() {
                       Council of 7
                     </h1>
                     <p className="text-slate-400 mt-2 text-lg">
-                      Module 1 AI Prompt Collection
+                      {moduleData[activeModule].title} - AI Prompt Collection
                     </p>
                   </div>
 
@@ -211,12 +213,80 @@ export function Dashboard() {
                       Course Modules
                     </h1>
                     <p className="text-slate-400 mt-2 text-lg">
-                      5 Learning Modules
+                      Select a module to view its prompts
                     </p>
                   </div>
 
-                  <div className="glass border border-slate-800 rounded-xl p-8 text-center">
-                    <p className="text-slate-400">Modules 1, 2, 4, and 5 coming soon...</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {(Object.keys(moduleData) as Array<keyof typeof moduleData>).map((moduleKey, index) => {
+                      const module = moduleData[moduleKey];
+                      const isActive = activeModule === moduleKey;
+
+                      return (
+                        <motion.div
+                          key={moduleKey}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                        >
+                          <Card
+                            onClick={() => {
+                              setActiveModule(moduleKey);
+                              setActiveView("Council of 7");
+                            }}
+                            className={`glass p-6 cursor-pointer transition-all hover:scale-105 ${
+                              isActive
+                                ? "border-emerald-500/50 bg-emerald-500/10"
+                                : "border-slate-800 hover:border-emerald-500/30"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30">
+                                <span className="text-sm font-bold text-emerald-400">
+                                  Module {index + 1}
+                                </span>
+                              </div>
+                              {isActive && (
+                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                              )}
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-100 mb-2">
+                              {module.title}
+                            </h3>
+                            <p className="text-sm text-slate-400">
+                              Click to view the 7 specialized prompts for this phase
+                            </p>
+                          </Card>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="glass border border-slate-800 rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-1 h-6 bg-gradient-to-b from-emerald-400 to-emerald-600 rounded-full" />
+                      <h2 className="text-xl font-bold text-slate-100">
+                        How to Use Modules
+                      </h2>
+                    </div>
+                    <ul className="space-y-2 text-slate-400">
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-400 mt-1">•</span>
+                        <span>Select a module to view its specialized prompts</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-400 mt-1">•</span>
+                        <span>Each module contains 7 prompts for the Council of 7</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-400 mt-1">•</span>
+                        <span>Copy and paste prompts into your AI platform</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-emerald-400 mt-1">•</span>
+                        <span>Work through modules sequentially for best results</span>
+                      </li>
+                    </ul>
                   </div>
                 </motion.div>
               )}
