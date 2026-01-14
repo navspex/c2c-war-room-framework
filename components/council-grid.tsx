@@ -32,7 +32,7 @@ export function CouncilGrid({ members }: CouncilGridProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4">
       {members.map((member, index) => (
         <motion.div
           key={member.id}
@@ -40,23 +40,23 @@ export function CouncilGrid({ members }: CouncilGridProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: index * 0.1 }}
         >
-          <Card className="glass border-slate-800 p-6 h-full flex flex-col hover:border-emerald-500/30 transition-all">
-            <div className="flex items-center justify-between mb-4">
+          <Card className="glass border-slate-800 p-4 h-full flex flex-col hover:border-emerald-500/30 transition-all bg-slate-950/80">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full bg-${member.color}-500`} />
-                <h3 className="text-lg font-semibold text-slate-100">
+                <div className={`w-2.5 h-2.5 rounded-full bg-${member.color}-500`} />
+                <h3 className="text-base font-semibold text-slate-100">
                   {member.name}
                 </h3>
               </div>
               <span className="text-xs text-slate-500">#{index + 1}</span>
             </div>
 
-            <div className="flex-1 mb-4">
+            <div className="flex-1 mb-3">
               <Textarea
                 value={member.prompt}
                 readOnly
-                rows={6}
-                className="bg-slate-950/50 border-slate-700 text-slate-300 text-sm font-mono resize-none focus:border-emerald-500"
+                rows={8}
+                className="bg-slate-950/70 border-slate-700 text-slate-300 text-xs font-mono resize-none focus:border-emerald-500 leading-relaxed"
               />
             </div>
 
@@ -64,17 +64,17 @@ export function CouncilGrid({ members }: CouncilGridProps) {
               onClick={() => handleCopy(member.id, member.prompt)}
               variant="outline"
               size="sm"
-              className="w-full bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300"
+              className="w-full bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 text-xs py-2"
             >
               {copiedId === member.id ? (
                 <>
-                  <Check size={16} className="mr-2" />
+                  <Check size={14} className="mr-1.5" />
                   Copied!
                 </>
               ) : (
                 <>
-                  <Copy size={16} className="mr-2" />
-                  Copy Prompt
+                  <Copy size={14} className="mr-1.5" />
+                  Copy
                 </>
               )}
             </Button>
