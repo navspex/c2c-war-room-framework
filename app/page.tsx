@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Activity, Users, Target, BookOpen } from "lucide-react";
+import { Activity, Users, Target, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ValidationEngine } from "@/components/validation-engine";
 
 export default function Home() {
+  const [showModule3, setShowModule3] = useState(false);
+
   const stats = [
     { icon: Activity, label: "Active Sessions", value: "12", color: "emerald" },
     { icon: Users, label: "Council Members", value: "7", color: "blue" },
@@ -80,6 +85,51 @@ export default function Home() {
                 All systems operational
               </span>
             </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="space-y-6"
+        >
+          <div className="glass border border-slate-800 rounded-xl overflow-hidden">
+            <button
+              onClick={() => setShowModule3(!showModule3)}
+              className="w-full p-6 flex items-center justify-between hover:bg-slate-800/30 transition-colors"
+            >
+              <div className="flex items-center gap-4">
+                <div className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30">
+                  <span className="text-sm font-bold text-emerald-400">Module 3</span>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-slate-100">
+                    Blitz Validation Engine
+                  </h3>
+                  <p className="text-sm text-slate-400 mt-1">
+                    Validate niche ideas with AI-powered research and decision matrix
+                  </p>
+                </div>
+              </div>
+              {showModule3 ? (
+                <ChevronUp className="text-emerald-400" size={24} />
+              ) : (
+                <ChevronDown className="text-emerald-400" size={24} />
+              )}
+            </button>
+
+            {showModule3 && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="border-t border-slate-800 p-6"
+              >
+                <ValidationEngine />
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>
