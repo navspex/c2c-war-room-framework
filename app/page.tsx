@@ -1,11 +1,5 @@
-"use client";
-
-import dynamic from "next/dynamic";
-
-const RouterWrapper = dynamic(() => import("@/components/router-wrapper").then(mod => ({ default: mod.RouterWrapper })), {
-  ssr: false,
-});
+import { LandingPage } from "@/components/landing-page";
 
 export default function Home() {
-  return <RouterWrapper />;
+  return <LandingPage />;
 }

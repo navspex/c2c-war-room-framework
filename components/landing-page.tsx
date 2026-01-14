@@ -2,13 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Sparkles, Users, Target, BookOpen, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PricingGrid } from "@/components/pricing-grid";
-import { useNavigate } from "react-router-dom";
 
 export function LandingPage() {
-  const navigate = useNavigate();
 
   const features = [
     {
@@ -68,14 +67,15 @@ export function LandingPage() {
           </div>
 
           <div className="flex items-center justify-center gap-4">
-            <Button
-              onClick={() => navigate("/dashboard")}
-              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-8 py-6 text-lg"
-              size="lg"
-            >
-              Launch War Room
-              <ArrowRight className="ml-2" size={20} />
-            </Button>
+            <Link href="/dashboard">
+              <Button
+                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-8 py-6 text-lg"
+                size="lg"
+              >
+                Launch War Room
+                <ArrowRight className="ml-2" size={20} />
+              </Button>
+            </Link>
           </div>
         </motion.div>
 
@@ -140,14 +140,15 @@ export function LandingPage() {
           <p className="text-slate-400 mb-8 text-lg max-w-2xl mx-auto">
             Join thousands of creators who are building recession-proof businesses with AI-powered course creation.
           </p>
-          <Button
-            onClick={() => navigate("/dashboard")}
-            className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-8 py-6 text-lg"
-            size="lg"
-          >
-            Get Started Now
-            <ArrowRight className="ml-2" size={20} />
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-8 py-6 text-lg"
+              size="lg"
+            >
+              Get Started Now
+              <ArrowRight className="ml-2" size={20} />
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </div>

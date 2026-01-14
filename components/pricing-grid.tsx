@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Check, Zap, Crown, Rocket } from "lucide-react";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 const plans = [
   {
@@ -60,12 +60,6 @@ const plans = [
 ];
 
 export function PricingGrid() {
-  const navigate = useNavigate();
-
-  const handleGetStarted = () => {
-    navigate("/dashboard");
-  };
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
       {plans.map((plan, index) => {
@@ -115,17 +109,18 @@ export function PricingGrid() {
                 ))}
               </div>
 
-              <Button
-                onClick={handleGetStarted}
-                className={`w-full ${
-                  plan.featured
-                    ? "bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white"
-                    : "bg-slate-800 hover:bg-slate-700 text-slate-100"
-                } transition-all`}
-                size="lg"
-              >
-                Get Started
-              </Button>
+              <Link href="/dashboard">
+                <Button
+                  className={`w-full ${
+                    plan.featured
+                      ? "bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white"
+                      : "bg-slate-800 hover:bg-slate-700 text-slate-100"
+                  } transition-all`}
+                  size="lg"
+                >
+                  Get Started
+                </Button>
+              </Link>
             </Card>
           </motion.div>
         );
