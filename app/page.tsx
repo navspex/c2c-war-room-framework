@@ -7,20 +7,22 @@ import { Card } from "@/components/ui/card";
 import { Sidebar } from "@/components/sidebar";
 import { ValidationEngine } from "@/components/validation-engine";
 import { CouncilGrid } from "@/components/council-grid";
-import { module1Prompts } from "@/lib/prompts/module1";
+import { councilPrompts } from "@/lib/data/prompts";
 
 export default function Home() {
   const [activeView, setActiveView] = useState("War Room");
   const [showModule3, setShowModule3] = useState(false);
 
+  const module1 = councilPrompts['module-1'];
+
   const councilMembers = [
-    { id: "scout", name: "Scout", prompt: module1Prompts.scout, color: "emerald" },
-    { id: "architect", name: "Architect", prompt: module1Prompts.architect, color: "blue" },
-    { id: "scribe", name: "Scribe", prompt: module1Prompts.scribe, color: "purple" },
-    { id: "auditor", name: "Auditor", prompt: module1Prompts.auditor, color: "orange" },
-    { id: "pulse", name: "Pulse", prompt: module1Prompts.pulse, color: "pink" },
-    { id: "visualist", name: "Visualist", prompt: module1Prompts.visualist, color: "cyan" },
-    { id: "homeBase", name: "Home Base", prompt: module1Prompts.homeBase, color: "yellow" },
+    { id: "scout", name: "Scout", prompt: module1.scout, color: "emerald" },
+    { id: "architect", name: "Architect", prompt: module1.architect, color: "blue" },
+    { id: "scribe", name: "Scribe", prompt: module1.scribe, color: "purple" },
+    { id: "auditor", name: "Auditor", prompt: module1.auditor, color: "orange" },
+    { id: "pulse", name: "Pulse", prompt: module1.pulse, color: "pink" },
+    { id: "visualist", name: "Visualist", prompt: module1.visualist, color: "cyan" },
+    { id: "homeBase", name: "Home Base", prompt: module1.homeBase, color: "yellow" },
   ];
 
   const stats = [
